@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": [
+      "DOM",
+      "ES2015"
+    ],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2015",
+    "outDir": "../build",
+    "removeComments": true,
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "electron.ts"
+  ]
+}

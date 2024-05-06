@@ -1,0 +1,53 @@
+{
+  "name": "sc-verifify-jw-files",
+  "version": "1.0.0",
+  "private": false,
+  "main": "build/electron.js",
+  "homepage": "./",
+  "author": {
+    "name": "Saulo, Inc."
+  },
+  "description": "Para baixar as mídias de uma playlist",
+  "scripts": {
+    "dev": "concurrently \"npm run start-frontend\" \"wait-on http://localhost:4444 && npm run dev-backend\"",
+    "dev-backend": "npm run build-backend && electron . --dev",
+    "prebuild": "rimraf build",
+    "build": "npm run build-frontend && npm run build-backend",
+    "build-frontend": "react-scripts build",
+    "build-backend": "tsc -p backend",
+    "start": "npm run build && electron .",
+    "start-electron": "npm run build-backend && electron .",
+    "start-frontend": "react-scripts start",
+    "eject": "react-scripts eject",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "npm run build && electron-builder"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.97",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "concurrently": "^8.2.2",
+    "electron": "^30.0.2",
+    "electron-builder": "^24.13.3",
+    "sass": "^1.76.0",
+    "typescript": "^4.9.5",
+    "wait-on": "^7.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

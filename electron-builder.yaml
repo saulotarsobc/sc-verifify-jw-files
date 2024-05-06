@@ -1,0 +1,17 @@
+productName: SC - Verify JW Files
+appId: com.sc.verifify.jw.files
+
+icon: build/logo512.png
+
+extends: react-cra
+
+extraMetadata:
+  main: build/electron.js
+
+directories:
+  output: dist
+  buildResources: public
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
