@@ -1,13 +1,28 @@
-import { contextBridge, ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer, IpcRendererEvent } from "electron";
+import { MediaInfo } from "./types";
 
 export const api = {
-  sendMessage: (message: string) => {
-    ipcRenderer.send("message", message);
+  chooseFile: () => {
+    ipcRenderer.send("chooseFile");
+  },
+
+  prepareDownList: (itens: MediaInfo[]) => {
+    ipcRenderer.send("prepareDownList", itens);
+  },
+
+  startDownloads: () => {
+    ipcRenderer.send("startDownloads");
+  },
+
+  readDatabase(filePath: string) {
+    ipcRenderer.send("readDatabase", filePath);
   },
 
   on: (channel: string, callback: Function) => {
-    ipcRenderer.on(channel, (_, data) => callback(data));
+    ipcRenderer.on(channel, (event: IpcRendererEvent, args: any[]) =>
+      callback(event, args)
+    );
   },
 };
 
-contextBridge.exposeInMainWorld("ipcRenderer", api);
+contextBridge.exposeInMainWorld("api", api);

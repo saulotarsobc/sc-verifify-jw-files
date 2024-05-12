@@ -1,5 +1,9 @@
-main#home{
-    background: #000;
+$orange : #e96d00;
+$orange-2 : #d65a00;
+$white : #f1f1f1;
+
+main#home {
+    background: #222;
     color: #fff;
     height: 100vh;
     width: 100%;
@@ -8,4 +12,77 @@ main#home{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+
+    thead {
+        tr {
+            td {
+                padding: 3px;
+                font-size: 22px;
+                text-align: center;
+                background-color: $orange;
+                border: 3px solid $white;
+            }
+        }
+    }
+
+    button {
+        background-color: $orange;
+        color: $white;
+        border: none;
+        padding: 13px;
+        min-width: 200px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        border: $white 3px solid;
+    }
+
+    tbody {
+        td {
+            text-align: center;
+            position: relative;
+            height: 35px;
+            gap: 2px;
+        }
+
+        .t-title {
+            padding: 3px;
+            background-color: $orange;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        td.progress {
+            background-color: $white;
+
+            .container-progress {
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            span.progress {
+                font-size: 18px;
+                color: #222;
+                z-index: 2;
+                font-weight: bold;
+            }
+
+            div.progress {
+                background-color: $orange-2;
+                height: 8px;
+                text-align: center;
+                position: absolute;
+                left: 0;
+                z-index: 1;
+                height: 100%;
+                transition: all ease .1s;
+            }
+        }
+    }
 }
