@@ -11,7 +11,14 @@ import { MediaInfo } from "./types";
 
 let mainWindow: BrowserWindow;
 
-const createWindow = () => {
+/**
+ * Creates a new window with the specified dimensions and title.
+ * Sets the webPreferences to disable nodeIntegration and enable contextIsolation.
+ * Loads the specified URL based on the development environment.
+ *
+ * @return {void}
+ */
+const createWindow = (): void => {
   const size = 800;
 
   mainWindow = new BrowserWindow({
@@ -56,7 +63,13 @@ let downList: { title: string; url: string; progress: string }[] = [];
 let filePath: string = "";
 let directoryPath: string = "";
 
-async function registerListeners() {
+/**
+ * Registers listeners for various IPC events related to file selection, database reading,
+ * download preparation, and download starting.
+ *
+ * @return {Promise<void>} A promise that resolves when all listeners have been registered.
+ */
+async function registerListeners(): Promise<void> {
   ipcMain.on("chooseFile", (event: IpcMainEvent) => {
     downList = [];
     dialog
@@ -155,7 +168,13 @@ async function registerListeners() {
   });
 }
 
-async function createDir(directoryPath: string) {
+/**
+ * Creates a directory at the specified path if it does not already exist.
+ *
+ * @param {string} directoryPath - The path of the directory to create.
+ * @return {Promise<void>} A Promise that resolves when the directory is created or if it already exists.
+ */
+async function createDir(directoryPath: string): Promise<void> {
   if (!existsSync(directoryPath)) {
     mkdir(directoryPath, { recursive: true }, (err) => {
       if (err) {
