@@ -3,11 +3,11 @@ import { createWriteStream, existsSync, mkdir, readFile } from "node:fs";
 
 import { BrowserWindow, app, ipcMain, dialog, IpcMainEvent } from "electron";
 import AdmZip from "adm-zip";
-import sqlite3 from "sqlite3";
+import Database from "better-sqlite3";
+import axios from "axios";
 
 import { isDev } from "./utils";
 import { MediaInfo } from "./types";
-import axios from "axios";
 
 let mainWindow: BrowserWindow;
 
@@ -87,16 +87,20 @@ async function registerListeners() {
       zip.extractEntryTo(userDataEntry, directoryPath, false, true);
 
       const databasePath = join(directoryPath, "userData.db");
-      const db = new sqlite3.Database(databasePath);
+      const db = new Database(databasePath); // Usando better-sqlite3 para abrir o banco de dados
 
-      db.all("SELECT * FROM Location", (err, rows) => {
-        if (err) {
-          console.error("Erro ao executar a consulta SQL:", err);
-          return;
-        }
+      try {
+        const rows = db
+          .prepare(
+            "SELECT 	loc.* FROM Tag t JOIN TagMap tm ON t.TagId = tm.TagId JOIN PlaylistItemLocationMap plilm ON tm.PlaylistItemId = plilm.PlaylistItemId JOIN Location loc ON plilm.LocationId  = loc.LocationId GROUP BY loc.LocationId;"
+          )
+          .all(); // Executando a consulta e obtendo todas as linhas
         event.sender.send("locationData", rows);
-      });
-      db.close();
+      } catch (err) {
+        console.error("Erro ao executar a consulta SQL:", err);
+      } finally {
+        db.close(); // Fechando o banco de dados
+      }
     });
   });
 
